@@ -1,0 +1,78 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Attendance = void 0;
+const sequelize_typescript_1 = require("sequelize-typescript");
+const employee_model_1 = require("../employees/employee.model");
+const site_model_1 = require("../sites/site.model");
+let Attendance = class Attendance extends sequelize_typescript_1.Model {
+};
+exports.Attendance = Attendance;
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    }),
+    __metadata("design:type", Number)
+], Attendance.prototype, "id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.DATEONLY,
+    }),
+    __metadata("design:type", String)
+], Attendance.prototype, "date", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING(30),
+    }),
+    __metadata("design:type", String)
+], Attendance.prototype, "status", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(true),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING(20),
+    }),
+    __metadata("design:type", Object)
+], Attendance.prototype, "dayType", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.ForeignKey)(() => employee_model_1.Employee),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Number)
+], Attendance.prototype, "employeeId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(true),
+    (0, sequelize_typescript_1.ForeignKey)(() => site_model_1.Site),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Object)
+], Attendance.prototype, "siteId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => employee_model_1.Employee),
+    __metadata("design:type", employee_model_1.Employee)
+], Attendance.prototype, "employee", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => site_model_1.Site),
+    __metadata("design:type", site_model_1.Site)
+], Attendance.prototype, "site", void 0);
+exports.Attendance = Attendance = __decorate([
+    (0, sequelize_typescript_1.Table)({
+        tableName: 'attendance',
+        timestamps: true,
+    })
+], Attendance);
+//# sourceMappingURL=attendance.model.js.map

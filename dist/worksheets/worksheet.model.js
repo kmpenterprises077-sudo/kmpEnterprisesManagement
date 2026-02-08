@@ -1,0 +1,92 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Worksheet = void 0;
+const sequelize_typescript_1 = require("sequelize-typescript");
+const employee_model_1 = require("../employees/employee.model");
+const site_model_1 = require("../sites/site.model");
+let Worksheet = class Worksheet extends sequelize_typescript_1.Model {
+};
+exports.Worksheet = Worksheet;
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    }),
+    __metadata("design:type", Number)
+], Worksheet.prototype, "id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.DATEONLY,
+    }),
+    __metadata("design:type", String)
+], Worksheet.prototype, "date", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.ForeignKey)(() => site_model_1.Site),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Number)
+], Worksheet.prototype, "siteId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.ForeignKey)(() => employee_model_1.Employee),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Number)
+], Worksheet.prototype, "employeeId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING(400),
+    }),
+    __metadata("design:type", String)
+], Worksheet.prototype, "description", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(true),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Object)
+], Worksheet.prototype, "workers", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(true),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING(120),
+    }),
+    __metadata("design:type", Object)
+], Worksheet.prototype, "supervisor", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(true),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING(30),
+    }),
+    __metadata("design:type", Object)
+], Worksheet.prototype, "status", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => site_model_1.Site),
+    __metadata("design:type", site_model_1.Site)
+], Worksheet.prototype, "site", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => employee_model_1.Employee),
+    __metadata("design:type", employee_model_1.Employee)
+], Worksheet.prototype, "employee", void 0);
+exports.Worksheet = Worksheet = __decorate([
+    (0, sequelize_typescript_1.Table)({
+        tableName: 'worksheets',
+        timestamps: true,
+    })
+], Worksheet);
+//# sourceMappingURL=worksheet.model.js.map
