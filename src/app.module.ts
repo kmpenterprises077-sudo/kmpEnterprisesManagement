@@ -23,6 +23,17 @@ import { Worksheet } from './worksheets/worksheet.model';
 import { EmployeeSite } from './employee-sites/employee-site.model';
 import { Invoice } from './invoices/invoice.model';
 
+const env = (
+  config: ConfigService,
+  key: string,
+  fallback?: string,
+): string | undefined => {
+  const value = config.get<string>(key);
+  const trimmed = value?.trim();
+
+  return trimmed || fallback;
+};
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,14 +43,13 @@ import { Invoice } from './invoices/invoice.model';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         dialect: 'mysql',
-        host: config.get<string>('DB_HOST') || 'localhost',
-        port: Number(config.get<string>('DB_PORT') || 3306),
-        username:
-          config.get<string>('DB_USER') || config.get<string>('DB_USERNAME'),
-        password: config.get<string>('DB_PASSWORD'),
-        database: config.get<string>('DB_NAME'),
+        host: env(config, 'DB_HOST', 'localhost'),
+        port: Number(env(config, 'DB_PORT', '3306')),
+        username: env(config, 'DB_USER') || env(config, 'DB_USERNAME'),
+        password: env(config, 'DB_PASSWORD'),
+        database: env(config, 'DB_NAME'),
         autoLoadModels: true,
-        synchronize: true,
+        synchronize: env(config, 'DB_SYNC') === 'true',
         models: [
           User,
           Role,

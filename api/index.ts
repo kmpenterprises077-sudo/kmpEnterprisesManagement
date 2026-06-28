@@ -13,7 +13,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: process.env.CORS_ORIGIN?.trim() || 'http://localhost:5173',
     credentials: true,
   });
 
@@ -21,7 +21,15 @@ async function bootstrap() {
 }
 
 export default async function handler(req: any, res: any) {
-  bootstrapPromise ||= bootstrap();
-  await bootstrapPromise;
-  return expressApp(req, res);
+  try {
+    bootstrapPromise ||= bootstrap();
+    await bootstrapPromise;
+    return expressApp(req, res);
+  } catch (error) {
+    bootstrapPromise = undefined;
+    console.error('Nest bootstrap failed', error);
+    return res.status(500).json({
+      message: 'Server failed to start. Check Vercel function logs.',
+    });
+  }
 }
