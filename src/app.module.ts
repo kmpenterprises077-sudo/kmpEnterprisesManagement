@@ -34,7 +34,8 @@ import { Invoice } from './invoices/invoice.model';
         dialect: 'mysql',
         host: config.get<string>('DB_HOST') || 'localhost',
         port: Number(config.get<string>('DB_PORT') || 3306),
-        username: config.get<string>('DB_USER'),
+        username:
+          config.get<string>('DB_USER') || config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_NAME'),
         autoLoadModels: true,
